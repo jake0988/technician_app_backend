@@ -1,0 +1,2 @@
+class Piano < ApplicationRecord
+end
