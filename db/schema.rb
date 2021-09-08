@@ -12,6 +12,15 @@
 
 ActiveRecord::Schema.define(version: 2021_09_08_172451) do
 
+  create_table "appointment_pianos", force: :cascade do |t|
+    t.integer "appointment_id", null: false
+    t.integer "piano_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["appointment_id"], name: "index_appointment_pianos_on_appointment_id"
+    t.index ["piano_id"], name: "index_appointment_pianos_on_piano_id"
+  end
+
   create_table "appointments", force: :cascade do |t|
     t.integer "initial_a4"
     t.text "work_done"
@@ -22,15 +31,6 @@ ActiveRecord::Schema.define(version: 2021_09_08_172451) do
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "appointments_pianos", force: :cascade do |t|
-    t.integer "appointment_id", null: false
-    t.integer "piano_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["appointment_id"], name: "index_appointments_pianos_on_appointment_id"
-    t.index ["piano_id"], name: "index_appointments_pianos_on_piano_id"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -65,6 +65,6 @@ ActiveRecord::Schema.define(version: 2021_09_08_172451) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "appointments_pianos", "appointments"
-  add_foreign_key "appointments_pianos", "pianos"
+  add_foreign_key "appointment_pianos", "appointments"
+  add_foreign_key "appointment_pianos", "pianos"
 end
