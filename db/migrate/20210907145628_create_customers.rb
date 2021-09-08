@@ -5,8 +5,8 @@ class CreateCustomers < ActiveRecord::Migration[6.0]
       t.string :address
       t.string :email
       t.string :phone_number
-      t.string :number_of_pianos
-      t.string :user_id
+      t.integer :number_of_pianos
+      t.string :user_id, foreign_key: true
 
       t.timestamps
     end

@@ -6,8 +6,9 @@ class CreatePianos < ActiveRecord::Migration[6.0]
       t.string :year
       t.string :image
       t.string :serial
-      t.string :future_work
-      t.string :customer_id
+      t.text :future_work
+      t.integer :customer_id, foreign_key: true
+      t.integer :user_id, foreign_key: true
 
       t.timestamps
     end

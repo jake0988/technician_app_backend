@@ -1,13 +1,14 @@
 class CreateAppointments < ActiveRecord::Migration[6.0]
   def change
     create_table :appointments do |t|
-      t.string :initial_a4
-      t.string :work_done
-      t.string :price
-      t.string :date
-      t.string :piano_id
-      t.string :hours
-
+      t.integer :initial_a4
+      t.text :work_done
+      t.integer :price
+      t.datetime :date
+      t.integer :piano_id, foreign_key: true
+      t.integer :hours
+      t.integer :user_id, foreign_key: true
+      
       t.timestamps
     end
   end
