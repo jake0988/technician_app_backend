@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2021_09_08_172451) do
     t.integer "initial_a4"
     t.text "work_done"
     t.integer "price"
-    t.datetime "date"
+    t.date "date"
     t.integer "piano_id"
     t.integer "hours"
     t.integer "user_id"

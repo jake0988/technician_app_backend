@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
-  resources :customers
-  resources :pianos
+  
+
   namespace :api do
     namespace :v1 do
       resources :users    
       resources :appointments
+      resources :customers
+      resources :pianos
     end
   end
   
