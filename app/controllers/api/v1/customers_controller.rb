@@ -2,12 +2,22 @@ class Api::V1::CustomersController < ApplicationController
   def index
     @customers = Customer.all
     render json: CustomerSerializer.new(@customers)
+    # byebug
+    # if logged_in?
+    #   @customers = current_user.customers
+     
+    #   render json: CustomerSerializer.new(@customers)
+    # else
+    #   render json: {
+    #     error: "You must be logged in or customer list is empty."
+    #   }
+    # end
   end
   
   def create
     @customer = Customer.new
     if @customer.save
-      render json: UserSerializer.new(@user), status: :accepted
+      render json: CustomerSerializer.new(@user), status: :accepted
     else
       render json: { errors: @user.errors.full_messages }, status: :unprocessible_entity
     end
@@ -20,7 +30,7 @@ class Api::V1::CustomersController < ApplicationController
     @user = User.find_by(id: params[:id])
     @user.update(user_params)
     if @user.save
-      render json: UserSerializer.new(@user), status: :accepted
+      render json: CustomerSerializer.new(@user), status: :accepted
     else
       render json: { errors: @user.errors.full_messages }, status: :unprocessible_entity
     end
@@ -35,7 +45,7 @@ class Api::V1::CustomersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :id, :phone_number, :address, :technician_notes)
+    params.require(:customer).permit(:name, :email, :id, :user_id, :phone_number, :address, :number_of_pianos)
   end
 
 end

@@ -1,4 +1,5 @@
 class UserSerializer
   include JSONAPI::Serializer
-  attributes :username, :name
+  attributes :id, :username, :name
+  # has_many :customers, serializer: CustomerSerializer
 end

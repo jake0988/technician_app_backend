@@ -1,8 +1,8 @@
 class Api::V1::PianosController < ApplicationController
     def index
-      piano = Piano.all
-      user_pianos = piano.where(user_id: params[:user_id])
-      render json: PianoSerializer.new(user_pianos)
+        piano = Piano.all
+        user_pianos = piano.where(user_id: params[:user_id])
+        render json: PianoSerializer.new(user_pianos)
     end
   
     def create
