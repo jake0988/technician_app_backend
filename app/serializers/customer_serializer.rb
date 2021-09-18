@@ -1,7 +1,6 @@
 class CustomerSerializer
   include JSONAPI::Serializer
   attributes :name, :address, :email, :phone_number, :number_of_pianos
-  
   # attributes :customers_json do |customer|
   #   {
   #     id: customer.id,

@@ -1,8 +1,8 @@
 class Api::V1::CustomersController < ApplicationController
   def index
-    @customers = Customer.all
-    render json: CustomerSerializer.new(@customers)
-    # byebug
+    # @customers = current_user.customers
+    # render json: CustomerSerializer.new(@customers)
+    byebug
     # if logged_in?
     #   @customers = current_user.customers
      
