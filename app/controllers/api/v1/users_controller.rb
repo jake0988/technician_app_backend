@@ -1,10 +1,11 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
+  # before_action :set_user, only: [:show, :update, :destroy]
 
 
   def show
     user_json = UserSerializer.new(@user).serializable_hash.to_json
     # render json: @user
+  
     render json: user_json
   end
 
@@ -13,7 +14,8 @@ class Api::V1::UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      render json: @user, status: :created, location: @user
+      render json: @user, status: :created
+      # , location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
     end
