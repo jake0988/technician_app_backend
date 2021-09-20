@@ -1,17 +1,19 @@
 class Api::V1::CustomersController < ApplicationController
+
   def index
+# 
     # @customers = current_user.customers
     # render json: CustomerSerializer.new(@customers)
-    byebug
-    # if logged_in?
-    #   @customers = current_user.customers
+    # render json: CustomerSerializer.new @user include: [:name]
+    if logged_in?
+      @customers = current_user.customers
      
-    #   render json: CustomerSerializer.new(@customers)
-    # else
-    #   render json: {
-    #     error: "You must be logged in or customer list is empty."
-    #   }
-    # end
+      render json: CustomerSerializer.new(@customers)
+    else
+      render json: {
+        error: "You must be logged in or customer list is empty."
+      }
+    end
   end
   
   def create
@@ -27,12 +29,12 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def update
-    @user = User.find_by(id: params[:id])
-    @user.update(user_params)
-    if @user.save
-      render json: CustomerSerializer.new(@user), status: :accepted
+    @customer = Customer.find_by(id: params[:id])
+    @customer.update(customer_params)
+    if @customer.save
+      render json: CustomerSerializer.new(@customer), status: :accepted
     else
-      render json: { errors: @user.errors.full_messages }, status: :unprocessible_entity
+      render json: { errors: @customer.errors.full_messages }, status: :unprocessible_entity
     end
   end
 
@@ -44,7 +46,7 @@ class Api::V1::CustomersController < ApplicationController
 
   private
 
-  def user_params
+  def customer_params
     params.require(:customer).permit(:name, :email, :id, :user_id, :phone_number, :address, :number_of_pianos)
   end
 
