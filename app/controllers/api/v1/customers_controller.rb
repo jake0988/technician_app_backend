@@ -1,13 +1,12 @@
 class Api::V1::CustomersController < ApplicationController
 
   def index
-# 
     # @customers = current_user.customers
     # render json: CustomerSerializer.new(@customers)
     # render json: CustomerSerializer.new @user include: [:name]
     if logged_in?
       @customers = current_user.customers
-     
+    #  byebug
       render json: CustomerSerializer.new(@customers)
     else
       render json: {
@@ -17,11 +16,12 @@ class Api::V1::CustomersController < ApplicationController
   end
   
   def create
-    @customer = Customer.new
+    # byebug
+    @customer = Customer.new(customer_params)
     if @customer.save
-      render json: CustomerSerializer.new(@user), status: :accepted
+      render json: CustomerSerializer.new(@customer), status: :accepted
     else
-      render json: { errors: @user.errors.full_messages }, status: :unprocessible_entity
+      render json: { errors: @customer.errors.full_messages.to_sentence }, status: :unprocessible_entity
     end
   end
 
