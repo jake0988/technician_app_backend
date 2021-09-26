@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_25_204732) do
+ActiveRecord::Schema.define(version: 2021_09_26_191346) do
 
   create_table "appointment_pianos", force: :cascade do |t|
     t.integer "appointment_id", null: false
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2021_09_25_204732) do
     t.string "year"
     t.string "image"
     t.string "serial"
-    t.text "future_work"
+    t.text "notes"
     t.integer "customer_id"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
