@@ -8,10 +8,12 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :users    
-      resources :appointments
-      resources :customers
-      resources :pianos
+      resources :users do
+        resources :appointments
+        resources :customers do
+          resources :pianos
+        end
+      end 
     end
   end
   

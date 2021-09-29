@@ -22,7 +22,7 @@ class Api::V1::PianosController < ApplicationController
     private
   
     def piano_params
-      params.require(:piano).permit(:make, :model, :serial, :age, :image_url, :private_technical_notes, :user_id)
+      params.require(:piano).permit(:make, :model, :serial, :year, :image, :notes, :user_id, :customer_id)
     end
   
 end
