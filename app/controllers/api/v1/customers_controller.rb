@@ -6,7 +6,6 @@ class Api::V1::CustomersController < ApplicationController
     # render json: CustomerSerializer.new @user include: [:name]
     if logged_in?
       @customers = current_user.customers
-    #  byebug
       render json: CustomerSerializer.new(@customers)
     else
       render json: {
@@ -30,6 +29,7 @@ class Api::V1::CustomersController < ApplicationController
 
   def update
     @customer = Customer.find_by(id: params[:id])
+    byebug
     @customer.update(customer_params)
     if @customer.save
       render json: CustomerSerializer.new(@customer), status: :accepted
