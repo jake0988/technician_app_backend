@@ -4,4 +4,5 @@ class Customer < ApplicationRecord
   has_many :appointments, through: :pianos
 
   validates :name, presence: true
+  validates :phone_number, :numericality => true, :allow_nil => true
 end

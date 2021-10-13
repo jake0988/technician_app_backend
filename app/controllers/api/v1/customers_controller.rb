@@ -1,5 +1,5 @@
 class Api::V1::CustomersController < ApplicationController
-
+  
   def index
     # @customers = current_user.customers
     # render json: CustomerSerializer.new(@customers)
@@ -15,12 +15,11 @@ class Api::V1::CustomersController < ApplicationController
   end
   
   def create
-    # byebug
     @customer = Customer.new(customer_params)
     if @customer.save
       render json: CustomerSerializer.new(@customer), status: :accepted
     else
-      render json: { errors: @customer.errors.full_messages.to_sentence }, status: :unprocessible_entity
+      render json: { errors: @customer.errors.full_messages.to_sentence }
     end
   end
 
@@ -29,12 +28,11 @@ class Api::V1::CustomersController < ApplicationController
 
   def update
     @customer = Customer.find_by(id: params[:id])
-    byebug
     @customer.update(customer_params)
     if @customer.save
       render json: CustomerSerializer.new(@customer), status: :accepted
     else
-      render json: { errors: @customer.errors.full_messages }, status: :unprocessible_entity
+      render json: { errors: @customer.errors.full_messages }
     end
   end
 
