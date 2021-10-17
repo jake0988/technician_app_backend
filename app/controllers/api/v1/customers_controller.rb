@@ -6,10 +6,11 @@ class Api::V1::CustomersController < ApplicationController
     # render json: CustomerSerializer.new @user include: [:name]
     if logged_in?
       @customers = current_user.customers
+      # byebug
       render json: CustomerSerializer.new(@customers)
     else
       render json: {
-        error: "You must be logged in or customer list is empty."
+        errors: "You must be logged in or customer list is empty."
       }
     end
   end
@@ -23,8 +24,17 @@ class Api::V1::CustomersController < ApplicationController
     end
   end
 
-  def show
-  end
+  # def show
+  #   @customer = Customer.find_by(id: params[:id])
+  #   byebug
+  #   if @customer
+  #     render json: CustomerSerializer(@customer)
+  #   else
+  #     render json: {
+  #       errors: "Customer not found"
+  #     }
+  #   end
+  # end
 
   def update
     @customer = Customer.find_by(id: params[:id])
@@ -37,9 +47,12 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def destroy
-    @user = User.find_by(id: params[:id])
-    # byebug
-    @user.delete
+    @customer = Customer.find_by(id: params[:id])
+    if @customer
+      @customer.delete
+    else
+      render json: {errors: @customer.errors.full_messages}
+    end
   end
 
   private

@@ -1,8 +1,7 @@
 class Api::V1::PianosController < ApplicationController
     def index
         piano = Piano.all 
-        user_pianos = piano.where(user_id: params[:user_id])
-        
+        user_pianos = piano.where(user_id: params[:id])
         render json: PianoSerializer.new(user_pianos)
     end
   
@@ -13,6 +12,13 @@ class Api::V1::PianosController < ApplicationController
       else
         render json: { errors: piano.errors.full_messages }
       end
+    end
+
+    def show
+      piano = Piano.all 
+        user_pianos = piano.where(user_id: params[:user_id], customer_id: params[:customer_id])
+        # byebug
+        render json: PianoSerializer.new(user_pianos)
     end
   
     def destroy
