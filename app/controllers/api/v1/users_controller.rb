@@ -1,28 +1,27 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
+  # before_action :set_user, only: [:show, :update, :destroy]
 
-  # GET /users
-  # def index
-  #   @users = User.all
 
-  #   render json: @users
-  # end
-
-  # GET /users/1
   def show
     user_json = UserSerializer.new(@user).serializable_hash.to_json
     # render json: @user
+  
     render json: user_json
   end
 
   # POST /users
   def create
     @user = User.new(user_params)
-
+    # byebug
     if @user.save
-      render json: @user, status: :created, location: @user
+      session[:user_id] = @user.id
+      render json: UserSerializer.new(@user).serializable_hash.to_json, status: :created
+      # , location: @user
     else
-      render json: @user.errors, status: :unprocessable_entity
+      resp = {
+        error: @user.errors.full_messages.to_sentence
+      }
+      render json: resp, status: :unprocessable_entity
     end
   end
 
@@ -41,13 +40,11 @@ class Api::V1::UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:username, :name, :username, :password_digest)
+      params.require(:user).permit(:name, :username, :password)
     end
 end
