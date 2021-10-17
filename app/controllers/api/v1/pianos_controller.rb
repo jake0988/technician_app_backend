@@ -1,6 +1,6 @@
 class Api::V1::PianosController < ApplicationController
     def index
-        piano = Piano.all 
+      piano = Piano.all
         user_pianos = piano.where(user_id: params[:id])
         render json: PianoSerializer.new(user_pianos)
     end
@@ -14,12 +14,11 @@ class Api::V1::PianosController < ApplicationController
       end
     end
 
-    def show
-      piano = Piano.all 
-        user_pianos = piano.where(user_id: params[:user_id], customer_id: params[:customer_id])
-        # byebug
-        render json: PianoSerializer.new(user_pianos)
-    end
+    # def show
+    #   piano = Piano.all
+    #     user_pianos = piano.where(user_id: params[:id], customer_id: params[:customer_id])
+    #     render json: PianoSerializer.new(user_pianos)
+    # end
   
     def destroy
       piano = Piano.find_by(id: params[:id])
@@ -29,7 +28,7 @@ class Api::V1::PianosController < ApplicationController
     private
   
     def piano_params
-      params.require(:piano).permit(:make, :model, :serial, :year, :image, :notes, :user_id, :customer_id)
+      params.require(:piano).permit(:make, :model, :serial, :year, :images, :notes, :user_id, :customer_id)
     end
   
 end
