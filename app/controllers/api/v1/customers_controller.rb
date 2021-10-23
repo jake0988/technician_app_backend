@@ -6,6 +6,7 @@ class Api::V1::CustomersController < ApplicationController
     # render json: CustomerSerializer.new @user include: [:name]
     if logged_in?
       @customers = current_user.customers
+      byebug
       render json: CustomerSerializer.new(@customers)
     else
       render json: {

@@ -1,6 +1,5 @@
 class Customer < ApplicationRecord
   attr_accessor :number_of_pianos
-  attr_reader :id
 
   belongs_to :user
   has_many :pianos, dependent: :delete_all
