@@ -48,8 +48,18 @@ class Api::V1::CustomersController < ApplicationController
 
   def destroy
     @customer = Customer.find_by(id: params[:id])
+    # pianos = Piano.where(customer_id: @customer.id)
+    # byebug
+    # if pianos
+    #   pianos.delete(id: *, customer_id: @customer.id)
+    # end
+    # byebug
     if @customer
-      @customer.delete
+      # pianos = Piano.where(customer_id: @customer.id)
+      # byebug
+      # pianos.destroy
+      @customer.destroy
+      render json: {message: "Successfully deleted"}
     else
       render json: {errors: @customer.errors.full_messages}
     end
