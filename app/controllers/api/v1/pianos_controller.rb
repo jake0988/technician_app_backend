@@ -2,6 +2,8 @@ class Api::V1::PianosController < ApplicationController
     def index
       piano = Piano.all
         user_pianos = piano.where(user_id: params[:id])
+        # byebug 
+        # user.image = rails_blob_path(piano.images)
         render json: PianoSerializer.new(user_pianos)
     end
   
@@ -22,13 +24,15 @@ class Api::V1::PianosController < ApplicationController
   
     def destroy
       piano = Piano.find_by(id: params[:id])
-      piano.delete
+      # byebug
+      piano.destroy
+      render json: {message: "Piano Destroyed"}
     end
   
     private
   
     def piano_params
-      params.require(:piano).permit(:make, :model, :serial, :year, :images, :notes, :user_id, :customer_id)
+      params.require(:piano).permit(:make, :model, :serial, :year, :image, :notes, :user_id, :customer_id)
     end
   
 end
