@@ -3,4 +3,7 @@ class Piano < ApplicationRecord
   # has_many :appointments, through: :appointment_pianos
   belongs_to :customer
   # has_many_attached :images
+  validates_with FormValidator
+
+
 end

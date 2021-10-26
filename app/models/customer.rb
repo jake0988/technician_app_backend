@@ -9,7 +9,7 @@ class Customer < ApplicationRecord
   validates :phone_number, :numericality => true, :allow_nil => true
 
   def number_of_pianos
-    number = Piano.where(customer_id: self[:id])
+    number = Piano.where(user_id: self[:user_id], customer_id: self[:id])
     length = number.length
     self.number_of_pianos = length
   end
