@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_23_162323) do
+ActiveRecord::Schema.define(version: 2021_12_18_021151) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -46,12 +46,13 @@ ActiveRecord::Schema.define(version: 2021_10_23_162323) do
     t.integer "initial_a4"
     t.text "work_done"
     t.integer "price"
-    t.date "date"
+    t.string "date", default: "2010/01/01"
     t.integer "piano_id"
     t.integer "hours"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "customer_id"
   end
 
   create_table "customers", force: :cascade do |t|
