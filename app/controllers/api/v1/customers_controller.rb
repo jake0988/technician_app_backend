@@ -23,18 +23,6 @@ class Api::V1::CustomersController < ApplicationController
     end
   end
 
-  # def show
-  #   @customer = Customer.find_by(id: params[:id])
-  #   byebug
-  #   if @customer
-  #     render json: CustomerSerializer(@customer)
-  #   else
-  #     render json: {
-  #       errors: "Customer not found"
-  #     }
-  #   end
-  # end
-
   def update
     @customer = Customer.find_by(id: params[:id])
     @customer.update(customer_params)
@@ -47,16 +35,7 @@ class Api::V1::CustomersController < ApplicationController
 
   def destroy
     @customer = Customer.find_by(id: params[:id])
-    # pianos = Piano.where(customer_id: @customer.id)
-    # byebug
-    # if pianos
-    #   pianos.delete(id: *, customer_id: @customer.id)
-    # end
-    # byebug
     if @customer
-      # pianos = Piano.where(customer_id: @customer.id)
-      # byebug
-      # pianos.destroy
       @customer.destroy
       render json: {message: "Successfully deleted"}
     else
