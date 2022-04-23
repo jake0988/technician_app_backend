@@ -6,13 +6,23 @@ class Api::V1::PianosController < ApplicationController
         # user.image = rails_blob_path(piano.images)
         render json: PianoSerializer.new(user_pianos)
     end
+
+    def show
+      alert("In Piano show!")
+      # byebug
+      # appointment_pianos = piano.where()
+    end
   
     def create
-      piano = Piano.create(piano_params)
+      byebug
+
+      @piano = Piano.save(piano_params)
+      byebug
+    
       if piano.save
-        render json: PianoSerializer.new(piano), status: :accepted
+        render json: PianoSerializer.new(@piano), status: :accepted
       else
-        render json: { errors: piano.errors.full_messages }
+        render json: { errors: @piano.errors.full_messages }
       end
     end
 
@@ -24,7 +34,7 @@ class Api::V1::PianosController < ApplicationController
   
     def destroy
       piano = Piano.find_by(id: params[:id])
-      # byebug
+     
       piano.destroy
       render json: {message: "Piano Destroyed"}
     end
@@ -32,7 +42,7 @@ class Api::V1::PianosController < ApplicationController
     private
   
     def piano_params
-      params.require(:piano).permit(:make, :model, :serial, :year, :image, :notes, :user_id, :customer_id)
+      params.require(:piano).permit(:make, :model, :serial, :year, :image, {images: []}, :notes, :user_id, :customer_id, :appointment_id)
     end
   
 end
