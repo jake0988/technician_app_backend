@@ -1,0 +1,29 @@
+services:
+  db:
+    platform: linux/x86_64
+    image: mysql:8.0.20
+    restart: always
+    environment:
+      MYSQL_USER: root
+      MYSQL_DB: chat_system
+      MYSQL_HOST: db
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3307:3306"
+  app:
+    platform: linux/x86_64
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - ".:/noteapp"
+    ports:
+      - "3001:3000"
+    depends_on:
+      - db
+    links:
+      - db
+    environment:
+      DB_USER: root
+      DB_NAME: chat_system
+      DB_PASSWORD: password
+      DB_HOST: db

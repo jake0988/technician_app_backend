@@ -15,10 +15,16 @@ class Api::V1::PianosController < ApplicationController
   
     def create
       byebug
-
       @piano = Piano.save(piano_params)
-      byebug
-    
+      
+    # if piano_params[:images]
+    #   blob = ActiveStorage::Blob.create_after_upload!(
+    #     io: StringIO.new((Base64.decode64(piano_params[:images].split(",")[1]))),
+    #     filename: "piano.jpg",
+    #     content_type: "image/jpg",
+    #   )
+    #   @piano.attach(blob)
+    # end
       if piano.save
         render json: PianoSerializer.new(@piano), status: :accepted
       else
@@ -42,7 +48,7 @@ class Api::V1::PianosController < ApplicationController
     private
   
     def piano_params
-      params.require(:piano).permit(:make, :model, :serial, :year, :image, {images: []}, :notes, :user_id, :customer_id, :appointment_id)
+      params.require(:piano).permit(:make, :model, :serial, :year, :image, :images, :notes, :user_id, :customer_id, :appointment_id)
     end
   
 end
