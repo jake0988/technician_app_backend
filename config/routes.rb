@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   # post "/api/v1/users/:id/customers/:customer_id/pianos", to: "api/v1/pianos#create"
   delete "/api/v1/users/:id/appointments/:id", to: "api/v1/appointments#destroy"
   post "/api/v1/signup", to: "api/v1/users#create" 
-
+  post "/api/v1/rails/active_storage/direct_uploads", to: "api/v1/direct_uploads#create"
   namespace :api do
     namespace :v1 do
       resources :users, only: [:show, :create, :update, :destroy] do
