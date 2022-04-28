@@ -16,6 +16,7 @@ class Api::V1::PianosController < ApplicationController
     def create
       @piano = Piano.new(piano_params)
       if params[:image]
+        debugger
         @piano.image.attach(params[:image])
       end
       @piano.save
