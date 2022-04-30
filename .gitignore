@@ -31,3 +31,6 @@
 /config/master.key
 /config/local_env.yml
 /.env
+
+#Ignore notes
+/.notes

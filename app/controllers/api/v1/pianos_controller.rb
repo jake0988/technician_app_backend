@@ -15,10 +15,14 @@ class Api::V1::PianosController < ApplicationController
   
     def create
       @piano = Piano.new(piano_params)
-      if params[:image]
-        debugger
-        @piano.image.attach(params[:image])
+    
+
+      if piano_params[:image]
+        @piano.image.attach(piano_params[:image])
       end
+      @piano.save
+      url = @piano.image.service_url
+      @piano.image_url = url
       @piano.save
       
     # if piano_params[:images]
@@ -43,7 +47,10 @@ class Api::V1::PianosController < ApplicationController
   
     def destroy
       piano = Piano.find_by(id: params[:id])
-     
+      if piano.image.attached?
+        piano.image.purge
+      end
+     byebug
       piano.destroy
       render json: {message: "Piano Destroyed"}
     end
