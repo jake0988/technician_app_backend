@@ -15,23 +15,13 @@ class Api::V1::PianosController < ApplicationController
   
     def create
       @piano = Piano.new(piano_params)
-    
-
-      if piano_params[:image]
+      # byebug
+      if piano_params[:image] != "undefined" && piano_params[:image]
         @piano.image.attach(piano_params[:image])
-      end
-      @piano.save
-      url = @piano.image.service_url
+        url = @piano.image.service_url
       @piano.image_url = url
       @piano.save
-      
-    # if piano_params[:images]
-    #   blob = ActiveStorage::Blob.create_after_upload!(
-    #     io: StringIO.new((Base64.decode64(piano_params[:images].split(",")[1]))),
-    #     filename: "piano.jpg",
-    #     content_type: "image/jpg",
-    #   )
-    #   @piano.attach(blob)
+      end
       if @piano.save
         render json: PianoSerializer.new(@piano), status: :accepted
       else
@@ -39,18 +29,12 @@ class Api::V1::PianosController < ApplicationController
       end
     end
 
-    # def show
-    #   piano = Piano.all
-    #     user_pianos = piano.where(user_id: params[:id], customer_id: params[:customer_id])
-    #     render json: PianoSerializer.new(user_pianos)
-    # end
   
     def destroy
-      piano = Piano.find_by(id: params[:id])
-      if piano.image.attached?
+      piano = Piano.find_by(user_id: params[:user_id], id: params[:id])
+      if piano && !!piano.image.attached?
         piano.image.purge
       end
-     byebug
       piano.destroy
       render json: {message: "Piano Destroyed"}
     end
